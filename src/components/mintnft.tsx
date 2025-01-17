@@ -334,7 +334,7 @@ const MintNft: React.FC = () => {
                     )}
                   </div>
                   <div className="absolute -top-1 left-0 scale-0 group-hover:scale-100 transition-transform duration-200 bg-gray-800 text-white text-xs rounded px-2 py-1">
-                    Using Mock storage. Image upload won't be visible. 
+                    Using Mock storage. Image upload wont be visible. 
                   </div>
                 </div>
               </div>
