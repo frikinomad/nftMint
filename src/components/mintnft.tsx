@@ -184,7 +184,8 @@ const MintNft: React.FC = () => {
       
       try{
         wallet.connect();
-        console.log("connected");
+        if(wallet.autoConnect)
+          console.log("connected");
       }catch(error){
         setError(`Wallet not connected ${error}`);
         return;
