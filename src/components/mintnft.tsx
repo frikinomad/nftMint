@@ -20,6 +20,7 @@ const MintNft: React.FC = () => {
     const [mintAddress, setMintAddress] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const { connected, publicKey } = useWallet();
+    const { connect, connecting } = useWallet();
     const wallet = useWallet();
 
     // Form state
@@ -178,16 +179,40 @@ const MintNft: React.FC = () => {
       }
     };
 
+    const handleConnect = async () => {
+      try {
+        // Check if already connecting to avoid multiple attempts
+        if (connecting) return;
+        
+        // Check if already connected
+        if (connected) return;
+        
+        // Check if wallet exists
+        if (!wallet) {
+          console.error('No wallet found');
+          return;
+        }
+  
+        await connect();
+      } catch (error) {
+        console.error('Failed to connect wallet:', error);
+      }
+    };
+
+    useEffect(() => {
+      handleConnect();
+    })
+
     const handleMintNft = useCallback(async () => {
       
-      try{
-        await wallet.connect();
-        if(wallet.autoConnect)
-          console.log("connected");
-      }catch(error){
-        setError(`Wallet not connected ${error}`);
-        return;
-      }
+      await handleConnect();
+
+      // try{
+      //   await wallet.connect();
+      // }catch(error){
+      //   setError(`Wallet not connected ${error}`);
+      //   return;
+      // }
 
       if (!selectedImage) {
         setError('Please select an image');
