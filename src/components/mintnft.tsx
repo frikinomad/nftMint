@@ -210,8 +210,9 @@ const MintNft: React.FC = () => {
       }));
 
       try {
-        const imageUri = await uploadImage();
-        console.log("ran imageuri ", imageUri);
+        // const imageUri = await uploadImage();
+        console.log("uploaded image");
+        const imageUri = "https://mockstorage.example.com/7wajck9Hre5L6UWWqXCU";
         const metadataUri = await uploadMetadata(imageUri);
         console.log("ran metadatauri ", metadataUri);
         const nftMintAddress = await mintNft(metadataUri);
@@ -309,40 +310,31 @@ const MintNft: React.FC = () => {
                   />
                 </div>
   
-                <div className="space-y-2">
+                <div className="space-y-2 group relative">
                   <label className="block text-sm font-medium">Image</label>
                   <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-700 rounded-lg p-6 bg-gray-900/30">
                     {imagePreview ? (
                       <div className="relative w-full aspect-square max-w-sm mx-auto">
-                        <img
-                          src={imagePreview}
-                          alt="NFT Preview"
-                          className="rounded-lg object-cover w-full h-full"
-                        />
-                        <button
-                          onClick={() => setImagePreview(null)}
+                        <img src={imagePreview} alt="NFT Preview" className="rounded-lg object-cover w-full h-full" />
+                        <button 
+                          onClick={() => setImagePreview(null)} 
                           className="absolute bottom-2 right-2 px-3 py-1 bg-gray-800/90 hover:bg-gray-700/90 rounded-md text-sm flex items-center gap-1 transition-colors duration-200"
                         >
-                          <X className="h-4 w-4" />
-                          Change
+                          <X className="h-4 w-4" /> Change
                         </button>
                       </div>
                     ) : (
                       <label className="w-full cursor-pointer">
                         <div className="flex flex-col items-center gap-2">
                           <ImagePlus className="h-12 w-12 text-gray-400" />
-                          <span className="text-sm text-gray-400">
-                            Click to upload image
-                          </span>
+                          <span className="text-sm text-gray-400">Click to upload image</span>
                         </div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          className="hidden"
-                        />
+                        <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                       </label>
                     )}
+                  </div>
+                  <div className="absolute -top-1 left-0 scale-0 group-hover:scale-100 transition-transform duration-200 bg-gray-800 text-white text-xs rounded px-2 py-1">
+                    Using Mock storage. Image upload won't be visible. 
                   </div>
                 </div>
               </div>
