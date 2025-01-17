@@ -99,7 +99,7 @@ const MintNft: React.FC = () => {
 
     const uploadImage = async (): Promise<string> => {
         if (!selectedImage) {
-            throw new Error('No image selected');
+            throw 'No image selected';
         }
 
         const formData = new FormData();
