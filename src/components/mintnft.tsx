@@ -22,9 +22,6 @@ const MintNft: React.FC = () => {
     const { connected, publicKey } = useWallet();
     const wallet = useWallet();
 
-    wallet.connect();
-
-
     // Form state
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
@@ -44,18 +41,19 @@ const MintNft: React.FC = () => {
         return umiInstance;
     }, [network]);
 
+    
 
-     // NFT details state
-     const [nftDetail, setNftDetail] = useState({
-        name: "",
-        symbol: "",
-        uri: "IPFS_URL_OF_METADATA",
-        royalties: 5.5,
-        description: '',
-        imgType: 'image/png',
-        attributes: [
-            { trait_type: 'Speed', value: 'Quick' },
-        ]
+    // NFT details state
+    const [nftDetail, setNftDetail] = useState({
+      name: "",
+      symbol: "",
+      uri: "IPFS_URL_OF_METADATA",
+      royalties: 5.5,
+      description: '',
+      imgType: 'image/png',
+      attributes: [
+          { trait_type: 'Speed', value: 'Quick' },
+      ]
     });
 
     // Handle image selection
@@ -183,7 +181,7 @@ const MintNft: React.FC = () => {
     const handleMintNft = useCallback(async () => {
       
       try{
-        wallet.connect();
+        await wallet.connect();
         if(wallet.autoConnect)
           console.log("connected");
       }catch(error){
@@ -199,8 +197,6 @@ const MintNft: React.FC = () => {
         setError('Please fill in all fields');
         return;
       }
-
-      wallet.connect();
 
       // Update NFT details before minting
       setNftDetail(prev => ({
@@ -218,8 +214,6 @@ const MintNft: React.FC = () => {
         console.log("ran metadatauri ", metadataUri);
         const nftMintAddress = await mintNft(metadataUri);
         console.log("ran nftmintaddress ");
-
-        console.log(nftMintAddress.status);
         
         if(nftMintAddress.error){
           throw nftMintAddress.status;
