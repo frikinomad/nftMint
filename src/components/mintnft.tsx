@@ -205,7 +205,7 @@ const MintNft: React.FC = () => {
 
     const handleMintNft = useCallback(async () => {
       
-      await handleConnect();
+      // await handleConnect();
 
       // try{
       //   await wallet.connect();
